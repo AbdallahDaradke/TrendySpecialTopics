@@ -22,7 +22,9 @@ function taskList({ tasks, setTasks }) {
         {tasks.map((task) => {
           return (
             <li key={task.id}>
-              {task.text} {task.completed ? "✔️" : "❌"}{" "}
+              <span key={task.id} onClick={() => toggleTask(task.id)}>
+                {task.text} {task.completed ? "✔️" : "❌"}{" "}
+              </span>
               <span key={task.id} onClick={() => handleDelete(task.id)}>
                 Delete
               </span>
