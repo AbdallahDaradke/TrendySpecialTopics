@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import TaskListForm from "./Components/taskListForm";
+import TaskList from "./Components/taskList";
 function App() {
-  const [count, setCount] = useState(0)
+  const [tasks, setTasks] = useState([
+    { id: 1, text: "Learn React", completed: false },
+    { id: 2, text: "Build a project", completed: false },
+  ]);
+  const [newTask, setNewTask] = useState("");
+
+  const handleAddTask = (e) => {
+    e.preventDefault();
+    setTasks([
+      ...tasks,
+      { id: tasks.length + 1, text: newTask, completed: false },
+    ]);
+    setNewTask("");
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h1>My Task List</h1>
+      <TaskListForm
+        handleAddTask={handleAddTask}
+        newTask={newTask}
+        setNewTask={setNewTask}
+      />
+      <TaskList tasks={tasks} setTasks={setTasks} />
+    </div>
+  );
 }
 
-export default App
+export default App;
