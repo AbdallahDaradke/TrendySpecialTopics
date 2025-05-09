@@ -10,15 +10,22 @@ function taskList({ tasks, setTasks }) {
       )
     );
   };
+  const [count, setCount] = useState(0);
+  const handleDelete = (taskId) => {
+    // setTasks(tasks.filter((task) => task.id !== taskId));
+    setTasks(tasks.filter((task) => task.id !== taskId));
+  };
 
   return (
     <Router>
       <ul>
         {tasks.map((task) => {
           return (
-            <li key={task.id} onClick={() => toggleTask(task.id)}>
+            <li key={task.id}>
               {task.text} {task.completed ? "✔️" : "❌"}{" "}
-              <Link to="/deletetask">Delete</Link>
+              <span key={task.id} onClick={() => handleDelete(task.id)}>
+                Delete
+              </span>
             </li>
           );
         })}
